@@ -1,6 +1,7 @@
 'use strict';
-
+// 开发环境
 const path = require('path');
+const webpack = require('webpack')
 
 // 单入口
 // module.exports = {
@@ -24,7 +25,7 @@ module.exports = {
         path: path.join(__dirname, 'dist'),
         filename: '[name].js'
     },
-    mode: 'production',
+    mode: 'development',
     module: {
         rules: [
             // 解析js
@@ -75,6 +76,14 @@ module.exports = {
                 use:'file-loader'
             },
         ]
+    },
+    // 热更新
+    plugins:[
+        new webpack.HotModuleReplacementPlugin()
+    ],
+    devServer:{
+        contentBase:'./dist',
+        hot:true
     }
 }
 
