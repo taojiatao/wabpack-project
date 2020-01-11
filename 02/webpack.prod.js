@@ -1,7 +1,12 @@
 'use strict';
 // 生产环境
 const path = require('path');
-const MiniCssExtracrPlugin = require('mini-css-extract-plugin')
+// 把生成css单文件插件（默认是放在header里面）
+const MiniCssExtracrPlugin = require('mini-css-extract-plugin');
+// css压缩插件
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+// html压缩
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 // 单入口
 // module.exports = {
 //     // 打包文件入口 可以是多入口（对象形式）也可以是单入口（字符串形式）
@@ -46,7 +51,7 @@ module.exports = {
             {
                 test: /.less$/,
                 use: [
-                    // 'style-loader', // 把css样式放header里面 
+                    // 'style-loader', // 把css样式放header里面
                     MiniCssExtracrPlugin.loader, // 把css样式生成单文件 与‘style-loader’ 冲突
                     'css-loader',
                     'less-loader'
@@ -89,9 +94,45 @@ module.exports = {
         ]
     },
     plugins:[
+        // 将css生成单文件插件
         new MiniCssExtracrPlugin({
             filename:"[name]_[contenthash:8].css",
+        }),
+        // 压缩css文件
+        new OptimizeCSSAssetsPlugin({
+            assetNameRegExp: /\.css$/g,
+            cssProcessor:require('cssnano')
+        }),
+        // index.html压缩
+        new HtmlWebpackPlugin({
+            template: path.join(__dirname,'src/index.html'),
+            filename: 'index.html',
+            chunks: ['index'],
+            inject: true,
+            minify: {
+                html5:true,
+                collapseWhitespace:true,
+                preserveLineBreaks:false,
+                minifyCSS:true,
+                minifyJS:true,
+                removeComments:false
+            }
+        }),
+        // index.html压缩
+        new HtmlWebpackPlugin({
+            template: path.join(__dirname,'src/search.html'),
+            filename: 'search.html',
+            chunks: ['search'],
+            inject: true,
+            minify: {
+                html5:true,
+                collapseWhitespace:true,
+                preserveLineBreaks:false,
+                minifyCSS:true,
+                minifyJS:true,
+                removeComments:false
+            }
         })
     ]
-}
+};
 
