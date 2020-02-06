@@ -58,7 +58,14 @@ module.exports = {
                     MiniCssExtractPlugin.loader, // 把css样式生成单文件 与‘style-loader’ 冲突
                     'css-loader',
                     'less-loader',
-                    'postcss-loader'
+                    'postcss-loader',// css前缀优化
+                    {
+                        loader: 'px2rem-loader', // 将px转化成rem
+                        options: {
+                            remUnit:75,
+                            remPrecision:8
+                        }
+                    }
                 ]
             },
             // 使用file-loader

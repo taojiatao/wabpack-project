@@ -1,0 +1,5 @@
+1.css自动补齐前缀 插件：postcss autoprefixer
+    postcss 需要配置文件 还需要在package.json里面配置
+2.自动将px转化成rem 插件： px2rem-loader
+3.静态资源内联 插件：raw-loader
+    具体用法见search.html

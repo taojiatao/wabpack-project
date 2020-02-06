@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="en">
 <head>
-    // 使用raw-loader 引入html
+<!--    使用raw-loader 引入html-->
     ${ require('raw-loader!./meta.html') }
     <title>Document</title>
-    // 使用raw-loader 引入js
+<!--  使用raw-loader 引入js  -->
     <script> ${ require('raw-loader!babel-loader!../node_modules/lib-flexible/flexible.js') }</script>
 </head>
 <body>
